@@ -20,6 +20,7 @@ chat_html = """
                         display: flex;
                         justify-content: center;
                         align-items: center;
+                        flex-direction: column; /* Align items vertically */
                         height: 100vh;
                         margin: 0;
                     }
@@ -87,6 +88,10 @@ chat_html = """
                     .chat-box div strong {
                         color: #333;
                     }
+                    .github-link {
+                        margin-top: 20px; /* Add some space above the link */
+                        text-align: center;
+                    }
                 </style>
             </head>
             <body>
@@ -100,6 +105,9 @@ chat_html = """
                     <div class="button-box">
                         <button onclick="clearChat()">Clear Chat</button>
                     </div>
+                </div>
+                <div class="github-link">
+                    <h1><a href="https://github.com/ghappy112/llm_chatbot">GitHub</a></h1>
                 </div>
 
                 <script>
