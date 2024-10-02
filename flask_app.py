@@ -1,5 +1,6 @@
-from flask import Flask, request, jsonify
+from flask import Flask, render_template, request, jsonify
 from huggingface_hub import InferenceClient
+import time
 
 client = InferenceClient(token="hf_token")
 
@@ -193,6 +194,19 @@ def chat():
         if "rate limit reached" in error_message or "too many requests" in error_message:
             return jsonify({"error": "Rate limit reached. Please wait a few hours and try again."})
         else:
+            tries = 0
+            while tries < 10:
+                time.sleep(1)
+                conversation_history.append({"role": "user", "content": "?"})
+                try:
+                    response = llm_chat(conversation_history)
+                    conversation_history.append({"role": "assistant", "content": response})
+                    return jsonify({"response": response})
+                except Exception as e:
+                    tries += 1
+                    error_message = str(e).lower()
+                    if "rate limit reached" in error_message or "too many requests" in error_message:
+                        return jsonify({"error": "Rate limit reached. Please wait a few hours and try again."})
             return jsonify({"error": "Internal Error, please try again."})
 
 @app.route('/clear', methods=['POST'])
