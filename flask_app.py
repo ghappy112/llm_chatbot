@@ -172,7 +172,7 @@ def llm_chat(messages, model="mistralai/Mistral-7B-Instruct-v0.3"):
 
     text = ''.join(messages).replace(' . ', '. ').replace(' , ',  ', ').replace(" - ", "-").replace("<assistant>", "").replace("</assistant>", "").replace("</s>", "").replace("<s>", "").strip()
 
-    if text[:5] == "<user>" and "</user>" in text:
+    if text[:6] == "<user>" and "</user>" in text:
         text = text[text.index("</user>") + len("</user>"):]
     if "<user>" in text:
         text = text[:text.index("<user>")]
