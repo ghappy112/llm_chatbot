@@ -92,6 +92,13 @@ chat_html = """
                         margin-top: 20px; /* Add some space above the link */
                         text-align: center;
                     }
+
+                    /* Responsive styles */
+                    @media (max-width: 600px) {
+                        .chat-container {
+                            width: 100%; /* Make the chat container full width on mobile */
+                        }
+                    }
                 </style>
             </head>
             <body>
@@ -144,6 +151,14 @@ chat_html = """
                             document.getElementById('chat-box').innerHTML = "";
                         });
                     }
+
+                    // Add event listener for the Enter key
+                    document.getElementById('user-input').addEventListener('keypress', function(event) {
+                        if (event.key === 'Enter') {
+                            sendMessage();
+                            event.preventDefault(); // Prevent the default action (e.g., form submission)
+                        }
+                    });
                 </script>
             </body>
             </html>
